@@ -1,6 +1,7 @@
 package com.larissa.dscatalog.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.larissa.dscatalog.dtos.CategoryDTO;
 import com.larissa.dscatalog.entities.Category;
+import com.larissa.dscatalog.exceptions.EntityNotFoundException;
 import com.larissa.dscatalog.repositories.CategoryRepository;
 
 @Service
@@ -23,4 +25,13 @@ public class CategoryService {
 
 		return list.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList()); 
 	}
+
+	@Transactional(readOnly = true)
+	public CategoryDTO findById(Long id) {
+		Optional<Category> obj = repository.findById(id);
+		Category entity = obj.orElseThrow(() -> new EntityNotFoundException("Entity not found"));
+		return new CategoryDTO(entity);
+	}
+	
+	
 }
