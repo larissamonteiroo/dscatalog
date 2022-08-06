@@ -2,12 +2,18 @@ package com.larissa.dscatalog.dtos;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import com.larissa.dscatalog.entities.Category;
 
 public class CategoryDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+	
+	@Size(min = 5, max = 60, message = "Campo deve ter entre 5 a 60 caracteres")
+	@NotBlank(message = "Campo Obrigatório")
 	private String name;
 
 	public CategoryDTO() {
