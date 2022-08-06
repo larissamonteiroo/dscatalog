@@ -51,9 +51,8 @@ public class ProductResource {
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO dto) {
 		dto = service.update(id, dto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
 
-		return ResponseEntity.created(uri).body(dto);
+		return ResponseEntity.ok().body(dto);
 	}
 
 	@DeleteMapping(value = "/{id}")
